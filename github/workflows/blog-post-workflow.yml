@@ -1,0 +1,21 @@
+name: Latest blog post workflow
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"   # runs twice a day
+  workflow_dispatch: {}
+
+jobs:
+  update-readme-with-blog:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pull in latest posts and update README
+        uses: gautamkrishnar/blog-post-workflow@master
+        with:
+          # Replace with your actual blog/RSS feed URL, e.g. a Medium or Hashnode feed
+          feed_list: "https://YOUR-BLOG-RSS-FEED-URL"
+          max_post_count: 5
